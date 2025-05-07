@@ -44,6 +44,10 @@ return {
       -- Path where project.nvim will store the project history for use in
       -- telescope
       datapath = vim.fn.stdpath 'data',
+
+      vim.keymap.set('n', '<leader>p', function()
+        require('telescope').extensions.projects.projects()
+      end, { desc = 'Open [P]rojects with Telescope' }),
     }
   end,
 }

@@ -23,40 +23,37 @@ require('lazy').setup({
   -- modular approach: using `require 'path/name'` will
   -- include a plugin definition from file lua/path/name.lua
 
-  require 'kickstart/plugins/gitsigns',
+  require 'siliconeagle/plugins/gitsigns',
 
-  require 'kickstart/plugins/which-key',
+  require 'siliconeagle/plugins/which-key',
 
-  require 'kickstart/plugins/telescope',
+  require 'siliconeagle/plugins/telescope',
 
-  require 'kickstart/plugins/lspconfig',
+  require 'siliconeagle/plugins/lspconfig',
 
-  require 'kickstart/plugins/conform',
+  require 'siliconeagle/plugins/conform',
 
-  require 'kickstart/plugins/blink-cmp',
+  require 'siliconeagle/plugins/blink-cmp',
 
-  require 'kickstart/plugins/tokyonight',
+  require 'siliconeagle/plugins/tokyonight',
 
-  require 'kickstart/plugins/todo-comments',
+  require 'siliconeagle/plugins/todo-comments',
 
-  require 'kickstart/plugins/mini',
+  require 'siliconeagle/plugins/mini',
 
-  require 'kickstart/plugins/treesitter',
+  require 'siliconeagle/plugins/treesitter',
 
-  -- The following comments only work if you have downloaded the kickstart repo, not just copy pasted the
-  -- init.lua. If you want these files, they are in the repository, so you can just download them and
-  -- place them in the correct locations.
-
-  -- NOTE: Next step on your Neovim journey: Add/Configure additional plugins for Kickstart
+  -- NOTE: Next step on your Neovim journey: Add/Configure additional plugins for siliconeagle
   --
-  --  Here are some example plugins that I've included in the Kickstart repository.
+  --  Here are some example plugins that I've included in the siliconeagle repository.
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
   --
-  -- require 'kickstart.plugins.debug',
-  -- require 'kickstart.plugins.indent_line',
-  -- require 'kickstart.plugins.lint',
-  -- require 'kickstart.plugins.autopairs',
-  require 'kickstart.plugins.neo-tree',
+  require 'siliconeagle.plugins.debug',
+  require 'siliconeagle.plugins.indent_line',
+  require 'siliconeagle.plugins.lint',
+  require 'siliconeagle.plugins.autopairs',
+  require 'siliconeagle.plugins.neo-tree',
+  require 'siliconeagle.plugins.project',
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.

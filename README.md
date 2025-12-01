@@ -12,6 +12,21 @@ A starting point for Neovim that is:
 
 ## Installation
 
+## Installation basics
+If you want to keep backup: make a backup :)
+
+Else, run this for a clean install:
+
+```bash
+# Delete
+Remove-Item $env:LOCALAPPDATA\nvim -Recurse -Force
+Remove-Item $env:LOCALAPPDATA\nvim-data -Recurse -Force
+
+# Clone starter
+git clone https://github.com/silicon-eagle/nvim.git "${env:LOCALAPPDATA}\nvim"
+```
+
+
 ### Install Neovim
 
 Kickstart.nvim targets *only* the latest

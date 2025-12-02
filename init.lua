@@ -105,8 +105,10 @@ require('lazy').setup({
         { '<leader>c', group = 'code' },
         { '<leader>d', group = 'debug' },
         { '<leader>dp', group = 'profiler' },
-        { '<leader>f', group = 'file/find' },
-        { '<leader>gh', group = 'hunks' },
+        { '<leader>f', group = 'file' },
+        { '<leader>g', group = 'git' },
+        { '<leader>gh', group = 'git hunks' },
+        { '<leader>l', group = 'lazy' },
         { '<leader>q', group = 'quit/session' },
         { '<leader>s', group = 'search' },
         { '<leader>u', group = 'ui' },
@@ -403,7 +405,7 @@ require('lazy').setup({
           --
           -- This may be unwanted, since they displace some of your code
           if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
-            map('<leader>th', function()
+            map('<leader>Th', function()
               vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
             end, '[T]oggle Inlay [H]ints')
           end

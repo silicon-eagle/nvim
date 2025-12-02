@@ -3,6 +3,14 @@
 
 local map = vim.keymap.set
 
+-- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
+-- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
+-- is not what someone will guess without a bit more experience.
+--
+-- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
+-- or just use <C-\><C-n> to exit terminal mode
+map('t', '<esc><esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+
 -- better up/down
 map({ 'n', 'x' }, 'j', "v:count == 0 ? 'gj' : 'j'", { desc = 'Down', expr = true, silent = true })
 map({ 'n', 'x' }, '<Down>', "v:count == 0 ? 'gj' : 'j'", { desc = 'Down', expr = true, silent = true })
@@ -124,9 +132,7 @@ map("n", "<leader>|", "<C-W>v", { desc = "Split Window Right", remap = true })
 map("n", "<leader>wd", "<C-W>c", { desc = "Delete Window", remap = true })
 
 -- floating terminal
-map("n", "<leader>ft", function() Snacks.terminal() end, { desc = "Terminal (cwd)" })
-map({"n","t"}, "<c-/>",function() Snacks.terminal() end, { desc = "Terminal (Root Dir)" })
-map({"n","t"}, "<c-_>",function() Snacks.terminal(nil, { cwd = LazyVim.root() }) end, { desc = "which_key_ignore" })
+map("n", "<leader>t", function() Snacks.terminal() end, { desc = "Terminal (cwd)" })
 
 -- tabs
 --

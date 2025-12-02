@@ -111,6 +111,7 @@ require('lazy').setup({
         { '<leader>l', group = 'lazy' },
         { '<leader>q', group = 'quit/session' },
         { '<leader>s', group = 'search' },
+        { '<leader>t', group = 'test/terminal' },
         { '<leader>u', group = 'ui' },
         { '<leader>x', group = 'diagnostics/quickfix' },
         { '[', group = 'prev' },

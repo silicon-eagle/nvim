@@ -66,9 +66,6 @@ map('i', ';', ';<c-g>u')
 -- save file
 map({ 'i', 'x', 'n', 's' }, '<C-s>', '<cmd>w<cr><esc>', { desc = 'Save File' })
 
---keywordprg
-map('n', '<leader>K', '<cmd>norm! K<cr>', { desc = 'Keywordprg' })
-
 -- better indenting
 map('x', '<', '<gv')
 map('x', '>', '>gv')
@@ -132,7 +129,7 @@ map("n", "<leader>|", "<C-W>v", { desc = "Split Window Right", remap = true })
 map("n", "<leader>wd", "<C-W>c", { desc = "Delete Window", remap = true })
 
 -- floating terminal
-map("n", "<leader>t", function() Snacks.terminal() end, { desc = "Terminal (cwd)" })
+map("n", "<leader>tt", function() Snacks.terminal() end, { desc = "Terminal (cwd)" })
 
 -- tabs
 --

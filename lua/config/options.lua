@@ -1,8 +1,8 @@
 -- [[ Basic Options ]]
 -- In this file all the options are defined
 --
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
@@ -23,7 +23,7 @@ vim.o.relativenumber = true
 --  Experiment for yourself to see if you like it!
 
 -- Enable mouse mode, can be useful for resizing splits for example!
-vim.o.mouse = 'a'
+vim.o.mouse = "a"
 
 -- Don't show the mode, since it's already in the status line
 vim.o.showmode = false
@@ -33,7 +33,7 @@ vim.o.showmode = false
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
 vim.schedule(function()
-  vim.o.clipboard = 'unnamedplus'
+  vim.o.clipboard = "unnamedplus"
 end)
 
 -- Enable break indent
@@ -59,7 +59,7 @@ vim.o.splitbelow = true
 vim.o.list = true
 
 -- Preview substitutions live, as you type!
-vim.o.inccommand = 'split'
+vim.o.inccommand = "split"
 
 -- Show which line your cursor is on
 vim.o.cursorline = true
@@ -78,65 +78,66 @@ local opt = vim.opt
 opt.autowrite = true -- Enable auto write
 -- only set clipboard if not in ssh, to make sure the OSC 52
 -- integration works automatically.
-opt.clipboard = vim.env.SSH_CONNECTION and '' or 'unnamedplus' -- Sync with system clipboard
-opt.completeopt = 'menu,menuone,noselect'
-opt.conceallevel = 2 -- Hide * markup for bold and italic, but not markers with substitutions
-opt.confirm = true -- Confirm to save changes before exiting modified buffer
-opt.cursorline = true -- Enable highlighting of the current line
-opt.expandtab = true -- Use spaces instead of tabs
+opt.clipboard = vim.env.SSH_CONNECTION and "" or "unnamedplus" -- Sync with system clipboard
+opt.completeopt = "menu,menuone,noselect"
+opt.conceallevel = 2                                           -- Hide * markup for bold and italic, but not markers with substitutions
+opt.confirm = true                                             -- Confirm to save changes before exiting modified buffer
+opt.cursorline = true                                          -- Enable highlighting of the current line
+opt.expandtab = true                                           -- Use spaces instead of tabs
 opt.fillchars = {
-  foldopen = '',
-  foldclose = '',
-  fold = ' ',
-  foldsep = ' ',
-  diff = '╱',
-  eob = ' ',
+  foldopen = "",
+  foldclose = "",
+  fold = " ",
+  foldsep = " ",
+  diff = "╱",
+  eob = " ",
 }
 opt.foldlevel = 99
-opt.foldmethod = 'indent'
-opt.foldtext = ''
-opt.formatexpr = ''
-opt.formatoptions = 'jcroqlnt' -- tcqj
-opt.grepformat = '%f:%l:%c:%m'
-opt.grepprg = 'rg --vimgrep'
-opt.ignorecase = true -- Ignore case
-opt.inccommand = 'nosplit' -- preview incremental substitute
-opt.jumpoptions = 'view'
-opt.laststatus = 3 -- global statusline
-opt.linebreak = true -- Wrap lines at convenient points
-opt.list = true -- Show some invisible characters (tabs...
-opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
-opt.mouse = 'a' -- Enable mouse mode
-opt.number = true -- Print line number
-opt.pumblend = 10 -- Popup blend
-opt.pumheight = 10 -- Maximum number of entries in a popup
-opt.relativenumber = true -- Relative line numbers
-opt.ruler = false -- Disable the default ruler
-opt.scrolloff = 4 -- Lines of context
-opt.sessionoptions = { 'buffers', 'curdir', 'tabpages', 'winsize', 'help', 'globals', 'skiprtp', 'folds' }
-opt.shiftround = true -- Round indent
-opt.shiftwidth = 2 -- Size of an indent
-opt.shortmess:append { W = true, I = true, c = true, C = true }
-opt.showmode = false -- Dont show mode since we have a statusline
-opt.sidescrolloff = 8 -- Columns of context
-opt.signcolumn = 'yes' -- Always show the signcolumn, otherwise it would shift the text each time
-opt.smartcase = true -- Don't ignore case with capitals
-opt.smartindent = true -- Insert indents automatically
+opt.foldmethod = "indent"
+opt.foldtext = ""
+opt.formatexpr = ""
+opt.formatoptions = "jcroqlnt" -- tcqj
+opt.grepformat = "%f:%l:%c:%m"
+opt.grepprg = "rg --vimgrep"
+opt.ignorecase = true      -- Ignore case
+opt.inccommand = "nosplit" -- preview incremental substitute
+opt.jumpoptions = "view"
+opt.laststatus = 3         -- global statusline
+opt.linebreak = true       -- Wrap lines at convenient points
+opt.list = true            -- Show some invisible characters (tabs...
+opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
+opt.mouse = "a"            -- Enable mouse mode
+opt.number = true          -- Print line number
+opt.pumblend = 10          -- Popup blend
+opt.pumheight = 10         -- Maximum number of entries in a popup
+opt.relativenumber = true  -- Relative line numbers
+opt.ruler = false          -- Disable the default ruler
+
+opt.scrolloff = 4          -- Lines of context
+opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize", "help", "globals", "skiprtp", "folds" }
+opt.shiftround = true      -- Round indent
+opt.shiftwidth = 2         -- Size of an indent
+opt.shortmess:append({ W = true, I = true, c = true, C = true })
+opt.showmode = false       -- Dont show mode since we have a statusline
+opt.sidescrolloff = 8      -- Columns of context
+opt.signcolumn = "yes"     -- Always show the signcolumn, otherwise it would shift the text each time
+opt.smartcase = true       -- Don't ignore case with capitals
+opt.smartindent = true     -- Insert indents automatically
 opt.smoothscroll = true
-opt.spelllang = { 'en' }
+opt.spelllang = { "en" }
 opt.splitbelow = true -- Put new windows below current
-opt.splitkeep = 'screen'
+opt.splitkeep = "screen"
 opt.splitright = true -- Put new windows right of current
 -- Remove LazyVim statuscolumn helper; use a simple number + sign column layout
 -- You can customize further or install a plugin like `luukvbaal/statuscol.nvim`.
-opt.statuscolumn = '%s%=%{v:lnum} '
-opt.tabstop = 2 -- Number of spaces tabs count for
-opt.termguicolors = true -- True color support
+opt.statuscolumn = "%s%=%{v:lnum} "
+opt.tabstop = 2                               -- Number of spaces tabs count for
+opt.termguicolors = true                      -- True color support
 opt.timeoutlen = vim.g.vscode and 1000 or 300 -- Lower than default (1000) to quickly trigger which-key
 opt.undofile = true
 opt.undolevels = 10000
-opt.updatetime = 200 -- Save swap file and trigger CursorHold
-opt.virtualedit = 'block' -- Allow cursor to move where there is no text in visual block mode
-opt.wildmode = 'longest:full,full' -- Command-line completion mode
-opt.winminwidth = 5 -- Minimum window width
-opt.wrap = false -- Disable line wrap
+opt.updatetime = 200               -- Save swap file and trigger CursorHold
+opt.virtualedit = "block"          -- Allow cursor to move where there is no text in visual block mode
+opt.wildmode = "longest:full,full" -- Command-line completion mode
+opt.winminwidth = 5                -- Minimum window width
+opt.wrap = false                   -- Disable line wrap

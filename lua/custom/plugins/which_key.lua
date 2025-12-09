@@ -54,6 +54,8 @@ return {
         { "<leader>g",  group = "git" },
         { "<leader>h",  group = "harpoon" },
         { "<leader>l",  group = "lazy" },
+        { "<leader>n",  group = "notifications" },
+        { "<leader>p",  group = "pytest" },
         { "<leader>o",  group = "open overview" },
         { "<leader>q",  group = "quit/session" },
         { "<leader>s",  group = "search" },

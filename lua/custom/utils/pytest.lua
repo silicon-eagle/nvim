@@ -1,6 +1,7 @@
 local M = {}
 
 local LOG = vim.log.levels
+local DEFAULT_SNACKS_TERM_COUNT = 1
 
 -- Send a namespaced notification to the user.
 local function notify(message, level)
@@ -83,46 +84,59 @@ local function scope_components(bufnr)
   return scopes
 end
 
--- Reuse or spawn a dedicated terminal buffer for pytest runs.
-local function ensure_terminal()
-  local buf = vim.g.pytest_terminal_buf
-  if buf and vim.api.nvim_buf_is_valid(buf) then
-    local chan = vim.b[buf] and vim.b[buf].terminal_job_id
-    if chan then
-      return buf, chan
-    end
+-- Reuse or spawn a Snacks terminal dedicated to pytest runs.
+local function ensure_terminal(opts)
+  local ok, Snacks = pcall(require, 'snacks')
+  if not ok or not Snacks.terminal then
+    return nil, nil, 'Snacks.terminal is unavailable'
   end
 
-  local previous = vim.api.nvim_get_current_win()
-  vim.cmd('botright 15split')
-  vim.cmd('terminal')
-  local term_win = vim.api.nvim_get_current_win()
-  local term_buf = vim.api.nvim_get_current_buf()
-  vim.b[term_buf].pytest_terminal = true
-  vim.g.pytest_terminal_buf = term_buf
-  local chan = vim.b[term_buf].terminal_job_id
-  if vim.api.nvim_win_is_valid(previous) then
-    vim.api.nvim_set_current_win(previous)
-  else
-    vim.api.nvim_set_current_win(term_win)
+  local focus = opts and opts.focus or false
+  local count = vim.g.pytest_snacks_terminal_count or DEFAULT_SNACKS_TERM_COUNT
+  local terminal_opts = {
+    count = count,
+    interactive = true,
+    auto_close = false,
+    start_insert = true,
+    auto_insert = true,
+    win = {
+      enter = focus,
+    },
+  }
+
+  local ok_get, terminal, _ = pcall(Snacks.terminal.get, nil, terminal_opts)
+  if not ok_get or not terminal then
+    local err = ok_get and 'Unable to create Snacks terminal' or terminal
+    return nil, nil, type(err) == 'string' and err or 'Failed to open Snacks terminal'
   end
-  return term_buf, chan
+
+  terminal:show()
+  if focus then
+    terminal:focus()
+  end
+
+  local buf = terminal.buf
+  if not buf or not vim.api.nvim_buf_is_valid(buf) then
+    return nil, nil, 'Invalid Snacks terminal buffer'
+  end
+
+  local chan = vim.b[buf] and vim.b[buf].terminal_job_id
+  if not chan then
+    return nil, nil, 'Snacks terminal job is missing'
+  end
+
+  vim.b[buf].pytest_terminal = true
+  return buf, chan
 end
 
 -- Send a pytest command line to the managed terminal buffer.
 local function send_to_terminal(cmd, opts)
-  local buf, chan = ensure_terminal()
+  local buf, chan, err = ensure_terminal(opts)
   if not chan then
-    notify('Unable to start pytest terminal', LOG.ERROR)
+    notify(err or 'Unable to start pytest terminal', LOG.ERROR)
     return false
   end
-  if opts and opts.focus then
-    local win = vim.fn.bufwinid(buf)
-    if win ~= -1 then
-      vim.api.nvim_set_current_win(win)
-    end
-  end
-  vim.fn.chansend(chan, cmd .. '\\r')
+  vim.fn.chansend(chan, cmd .. "\r")
   notify('Running: ' .. cmd)
   return true
 end

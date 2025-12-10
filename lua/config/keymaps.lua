@@ -2,15 +2,15 @@
 --  See `:help vim.keymap.set()`
 
 local map = vim.keymap.set
-local pytest = require 'custom.utils.pytest'
+local pytest = require("custom.utils.pytest")
 local function python_only(handler)
-  return function(...)
-    if vim.bo.filetype ~= 'python' then
-      vim.notify('[pytest] Not a python buffer', vim.log.levels.WARN)
-      return
-    end
-    handler(...)
-  end
+	return function(...)
+		if vim.bo.filetype ~= "python" then
+			vim.notify("[pytest] Not a python buffer", vim.log.levels.WARN)
+			return
+		end
+		handler(...)
+	end
 end
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
@@ -59,10 +59,10 @@ map("n", "<leader>bD", "<cmd>:bd<cr>", { desc = "Delete Buffer and Window" })
 -- Clear search, diff update and redraw
 -- taken from runtime/lua/_editor.lua
 map(
-  "n",
-  "<leader>ur",
-  "<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>",
-  { desc = "Redraw / Clear hlsearch / Diff Update" }
+	"n",
+	"<leader>ur",
+	"<Cmd>nohlsearch<Bar>diffupdate<Bar>normal! <C-L><CR>",
+	{ desc = "Redraw / Clear hlsearch / Diff Update" }
 )
 
 -- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
@@ -91,18 +91,18 @@ map("n", "gcO", "O<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = "Add Commen
 
 -- location list
 map("n", "<leader>xl", function()
-  local success, err = pcall(vim.fn.getloclist(0, { winid = 0 }).winid ~= 0 and vim.cmd.lclose or vim.cmd.lopen)
-  if not success and err then
-    vim.notify(err, vim.log.levels.ERROR)
-  end
+	local success, err = pcall(vim.fn.getloclist(0, { winid = 0 }).winid ~= 0 and vim.cmd.lclose or vim.cmd.lopen)
+	if not success and err then
+		vim.notify(err, vim.log.levels.ERROR)
+	end
 end, { desc = "Location List" })
 
 -- quickfix list
 map("n", "<leader>xq", function()
-  local success, err = pcall(vim.fn.getqflist({ winid = 0 }).winid ~= 0 and vim.cmd.cclose or vim.cmd.copen)
-  if not success and err then
-    vim.notify(err, vim.log.levels.ERROR)
-  end
+	local success, err = pcall(vim.fn.getqflist({ winid = 0 }).winid ~= 0 and vim.cmd.cclose or vim.cmd.copen)
+	if not success and err then
+		vim.notify(err, vim.log.levels.ERROR)
+	end
 end, { desc = "Quickfix List" })
 
 map("n", "[q", vim.cmd.cprev, { desc = "Previous Quickfix" })
@@ -110,13 +110,13 @@ map("n", "]q", vim.cmd.cnext, { desc = "Next Quickfix" })
 
 -- diagnostic
 local diagnostic_goto = function(next, severity)
-  return function()
-    vim.diagnostic.jump({
-      count = (next and 1 or -1) * vim.v.count1,
-      severity = severity and vim.diagnostic.severity[severity] or nil,
-      float = true,
-    })
-  end
+	return function()
+		vim.diagnostic.jump({
+			count = (next and 1 or -1) * vim.v.count1,
+			severity = severity and vim.diagnostic.severity[severity] or nil,
+			float = true,
+		})
+	end
 end
 map("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
 map("n", "]d", diagnostic_goto(true), { desc = "Next Diagnostic" })
@@ -150,3 +150,4 @@ map("n", "<leader>t", function() Snacks.terminal() end, { desc = "Terminal (cwd)
 map("n", "<leader>pm", python_only(pytest.run_nearest), { desc = "[P]ytest [M]ethod" })
 map("n", "<leader>pf", python_only(pytest.run_file), { desc = "[P]ytest [F]ile" })
 map("n", "<leader>pl", python_only(pytest.run_last), { desc = "[P]ytest [L]ast" })
+

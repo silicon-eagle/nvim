@@ -2,13 +2,72 @@
 
 ## Introduction
 
-A starting point for Neovim that is:
+This is no longer the vanilla Kickstart sample. It is a curated daily-driver
+configuration focused on fast navigation, Python-first workflows, and a clean
+UI that stays out of the way. Kickstart's structure is still here, but every
+layer has been expanded with opinionated plugins, theme modules, and helper
+utilities to cover day-to-day development on Windows, macOS, and Linux.
 
-* Small
-* Single-file
-* Completely Documented
+### Highlights
+- `Blink.cmp` + `LuaSnip` power autocompletion with type-aware snippets and Lua
+  LSP docs from `lazydev`.
+- `nvim-lspconfig` + `mason` + `basedpyright` + `ruff` handle language servers,
+  formatters, and diagnostics while `none-ls` wires up format-on-save.
+- Snacks.nvim provides modern UX niceties (status column, smooth scrolling,
+  slick notifications, picker, indent guides) without extra config.
+- UI polish via `bufferline`, `lualine`, `neo-tree`, `aerial`, `indent-blankline`,
+  and `noice` keeps buffers, symbols, and messages tidy.
+- Batteries for testing (`custom.utils.pytest`, pytest keymaps, dap-python) and
+  debugging (`nvim-dap`, `dap-ui`, custom signs) are ready out of the box.
+- CopilotChat is built in for inline AI chat with command palette triggers.
 
-**NOT** a Neovim distribution, but instead a starting point for your configuration.
+### Plugin Stack at a Glance
+| Category | Plugins / Notes |
+| --- | --- |
+| Completion & Snippets | `saghen/blink.cmp`, `LuaSnip`, `folke/lazydev.nvim` |
+| LSP & Diagnostics | `nvim-lspconfig`, `mason.nvim`, `mason-lspconfig`, `mason-tool-installer`, `nvimtools/none-ls.nvim`, `j-hui/fidget.nvim` |
+| Treesitter & Text Objects | `nvim-treesitter`, `mini.ai`, `mini.surround`, `todo-comments.nvim` |
+| Navigation & Search | `telescope.nvim` (+ `telescope-fzf-native`, `telescope-ui-select`), `ThePrimeagen/harpoon` (v2), `stevearc/aerial.nvim` |
+| UI & Workflow | `bufferline.nvim`, `lualine.nvim`, `nvim-neo-tree`, `folke/noice.nvim`, `folke/snacks.nvim`, `indent-blankline.nvim`, `windwp/nvim-autopairs`, `which-key.nvim` |
+| Git | `lewis6991/gitsigns.nvim`, `kdheepak/lazygit.nvim` |
+| Testing & Debugging | `mfussenegger/nvim-dap`, `rcarriga/nvim-dap-ui`, `mason-nvim-dap`, `nvim-dap-python`, custom pytest helpers in `lua/custom/utils/pytest.lua` |
+| AI Assist | `CopilotC-Nvim/CopilotChat.nvim` with floating chat buffers |
+
+### Key Customizations
+- Leader key is `<Space>` with `which-key` categories for buffers, git, debug,
+  pytest, and more. Buffer/tab controls come from `bufferline` plus Harpoon v2
+  mappings (`<leader>hh`, `<leader>hm`, `<leader>1..9`).
+- Themes live in `lua/custom/themes/*`. Set `$NVIM_THEME` to `onedark`,
+  `tokyonight`, or `rosepine` (default: onedark) before launching Neovim to
+  swap palettes without touching Lua.
+- `lua/custom/utils/root.lua` and `config.icons` drive the lualine components,
+  showing the project root and pretty buffer paths next to diagnostics and git
+  stats.
+- Python quality-of-life: automatic interpreter detection via `uv python find`
+  fallback (`custom.utils.python`), pytest orchestration with Snacks terminals
+  (`<leader>pm/pf/pl`), and dap-python pre-wired for pytest debugging.
+- Snacks.nvim handles scroll, indent scope, statuscolumn, notifications, and a
+  fuzzy picker—`<leader>ns` opens recent notifications, `<leader>nd` dismisses
+  them.
+- Format-on-save is enabled through `none-ls` for Lua (stylua), Ruff (formatting
+  + import order), Prettier, shfmt, and Terraform.
+- CopilotChat shortcuts: `<leader>aa` toggles the chat window, `<leader>aq`
+  prompts for a quick question, `<leader>ap` opens prompt presets.
+
+### Project Layout
+- `lua/config/` — options, keymaps, autocmds, and custom icon definitions loaded
+  before Lazy.
+- `lua/custom/plugins/` — one plugin per file for clarity (LSP, Treesitter,
+  Telescope, Harpoon, DAP, etc.). Add new specs here to keep upstream merges
+  painless.
+- `lua/custom/themes/` — theme modules selected dynamically via `$NVIM_THEME`.
+- `lua/custom/utils/` — utility modules for pytest runners, python resolution,
+  and root/path helpers used by statusline + commands.
+- `lua/custom/health.lua` — `:checkhealth kickstart.nvim` entries validating
+  dependencies like git/make/rg.
+
+This README now reflects the current setup; see individual plugin files for the
+exact Lazy specs or run `:Lazy` inside Neovim for live status.
 
 ## Installation
 

@@ -75,13 +75,13 @@ return {
           LogPoint = '',
           Stopped = '',
         }
-        or {
-          Breakpoint = '●',
-          BreakpointCondition = '⊜',
-          BreakpointRejected = '⊘',
-          LogPoint = '◆',
-          Stopped = '⭔',
-        }
+      or {
+        Breakpoint = '●',
+        BreakpointCondition = '⊜',
+        BreakpointRejected = '⊘',
+        LogPoint = '◆',
+        Stopped = '⭔',
+      }
     for type, icon in pairs(breakpoint_icons) do
       local tp = 'Dap' .. type
       local hl = (type == 'Stopped') and 'DapStop' or 'DapBreak'
@@ -106,13 +106,13 @@ return {
 
     -- Keymaps for debug tests
     vim.keymap.set('n', '<leader>dtm', function()
-      require('dap-python').test_method()
+      dap_python.test_method()
     end, { desc = '[D]ebug [T]est [M]ethod' })
     vim.keymap.set('n', '<leader>dtc', function()
-      require('dap-python').test_class()
+      dap_python.test_class()
     end, { desc = '[D]ebug [T]est [C]lass' })
     vim.keymap.set('n', '<leader>dts', function()
-      require('dap-python').debug_selection()
+      dap_python.debug_selection()
     end, { desc = '[D]ebug [T]est [S]election' })
   end,
 }

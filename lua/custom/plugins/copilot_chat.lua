@@ -7,6 +7,7 @@ return {
       local user = vim.env.USER or 'User'
       user = user:sub(1, 1):upper() .. user:sub(2)
       return {
+        model = 'gpt-5.1-codex',
         auto_insert_mode = true,
         headers = {
           user = '  ' .. user .. ' ',
@@ -19,8 +20,8 @@ return {
       }
     end,
     keys = {
-      { '<c-s>', '<CR>', ft = 'copilot-chat', desc = 'Submit Prompt', remap = true },
-      { '<leader>a', '', desc = '+ai', mode = { 'n', 'x' } },
+      { '<c-s>',     '<CR>', ft = 'copilot-chat', desc = 'Submit Prompt', remap = true },
+      { '<leader>a', '',     desc = '+ai',        mode = { 'n', 'x' } },
       {
         '<leader>aa',
         function()
@@ -30,11 +31,19 @@ return {
         mode = { 'n', 'x' },
       },
       {
-        '<leader>ax',
+        '<leader>am',
+        function()
+          return require('CopilotChat').select_model()
+        end,
+        desc = 'Choose [M]odel (CopilotChat)',
+        mode = { 'n', 'x' },
+      },
+      {
+        '<leader>ac',
         function()
           return require('CopilotChat').reset()
         end,
-        desc = 'Clear (CopilotChat)',
+        desc = '[C]lear (CopilotChat)',
         mode = { 'n', 'x' },
       },
       {
@@ -48,7 +57,7 @@ return {
             end
           end)
         end,
-        desc = 'Quick Chat (CopilotChat)',
+        desc = '[Q]uick Chat (CopilotChat)',
         mode = { 'n', 'x' },
       },
       {
@@ -56,7 +65,7 @@ return {
         function()
           require('CopilotChat').select_prompt()
         end,
-        desc = 'Prompt Actions (CopilotChat)',
+        desc = '[P]rompt Actions (CopilotChat)',
         mode = { 'n', 'x' },
       },
     },

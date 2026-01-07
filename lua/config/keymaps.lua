@@ -109,6 +109,38 @@ map('n', '[q', vim.cmd.cprev, { desc = 'Previous Quickfix' })
 map('n', ']q', vim.cmd.cnext, { desc = 'Next Quickfix' })
 
 -- diagnostic
+-- Command to toggle inline diagnostics
+vim.api.nvim_create_user_command('DiagnosticsToggleVirtualText', function()
+  local current_value = vim.diagnostic.config().virtual_text
+  if current_value then
+    vim.diagnostic.config { virtual_text = false }
+  else
+    vim.diagnostic.config { virtual_text = true }
+  end
+end, {})
+
+-- Command to toggle diagnostics
+vim.api.nvim_create_user_command('DiagnosticsToggle', function()
+  local current_value = vim.diagnostic.is_enabled()
+  if current_value then
+    vim.diagnostic.enable()
+  else
+    vim.diagnostic.enable(false)
+  end
+end, {})
+
+-- Keybinding to toggle inline diagnostics (ii)
+vim.api.nvim_set_keymap(
+  'n',
+  '<Leader>ci',
+  ':lua vim.cmd("DiagnosticsToggleVirtualText")<CR>',
+  { noremap = true, silent = true, desc = 'Toggle [I]nline Diagnostics' }
+)
+
+-- Keybinding to toggle diagnostics (id)
+vim.api.nvim_set_keymap('n', '<Leader>cd', ':lua vim.cmd("DiagnosticsToggle")<CR>',
+  { noremap = true, silent = true, desc = 'Toggle [D]iagnostics' })
+
 local diagnostic_goto = function(next, severity)
   return function()
     vim.diagnostic.jump {
@@ -118,7 +150,7 @@ local diagnostic_goto = function(next, severity)
     }
   end
 end
-map('n', '<leader>cd', vim.diagnostic.open_float, { desc = 'Line Diagnostics' })
+map('n', '<leader>cs', vim.diagnostic.open_float, { desc = '[S]how Line Diagnostics' })
 map('n', ']d', diagnostic_goto(true), { desc = 'Next Diagnostic' })
 map('n', '[d', diagnostic_goto(false), { desc = 'Prev Diagnostic' })
 map('n', ']e', diagnostic_goto(true, 'ERROR'), { desc = 'Next Error' })

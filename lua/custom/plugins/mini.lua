@@ -1,14 +1,14 @@
 return {
   -- Highlight todo, notes, etc in comments
   {
-    'folke/todo-comments.nvim',
-    event = 'VimEnter',
-    dependencies = { 'nvim-lua/plenary.nvim' },
+    "folke/todo-comments.nvim",
+    event = "VimEnter",
+    dependencies = { "nvim-lua/plenary.nvim" },
     opts = { signs = false },
   },
 
   { -- Collection of various small independent plugins/modules
-    'echasnovski/mini.nvim',
+    "echasnovski/mini.nvim",
     config = function()
       -- Better Around/Inside textobjects
       --
@@ -16,25 +16,25 @@ return {
       --  - va)  - [V]isually select [A]round [)]paren
       --  - yinq - [Y]ank [I]nside [N]ext [Q]uote
       --  - ci'  - [C]hange [I]nside [']quote
-      require('mini.ai').setup { n_lines = 500 }
+      require("mini.ai").setup({ n_lines = 500 })
 
       -- Add/delete/replace surroundings (brackets, quotes, etc.)
       --
       -- - saiw) - [S]urround [A]dd [I]nner [W]ord [)]Paren
       -- - sd'   - [S]urround [D]elete [']quotes
       -- - sr)'  - [S]urround [R]eplace [)] []
-      require('mini.surround').setup()
+      require("mini.surround").setup()
 
-      local map = require 'mini.map'
-      map.setup {
+      local map = require("mini.map")
+      map.setup({
         integrations = {
           map.gen_integration.builtin_search(),
           map.gen_integration.diff(),
           map.gen_integration.diagnostic(),
         },
-      }
+      })
       -- QOL utilities
-      require('mini.map').setup( -- No need to copy this inside `setup()`. Will be used automatically.
+      require("mini.map").setup( -- No need to copy this inside `setup()`. Will be used automatically.
         {
           -- Highlight integrations (none by default)
           --
@@ -50,11 +50,11 @@ return {
             -- Encode symbols. See `:h MiniMap.config` for specification and
             -- `:h MiniMap.gen_encode_symbols` for pre-built ones.
             -- Default: solid blocks with 3x2 resolution.
-            encode = MiniMap.gen_encode_symbols.dot '4x2',
+            encode = MiniMap.gen_encode_symbols.dot("4x2"),
 
             -- Scrollbar parts for view and line. Use empty string to disable any.
-            scroll_line = '█',
-            scroll_view = '┃',
+            scroll_line = "█",
+            scroll_view = "┃",
           },
 
           -- Window options
@@ -63,7 +63,7 @@ return {
             focusable = false,
 
             -- Side to stick ('left' or 'right')
-            side = 'right',
+            side = "right",
 
             -- Whether to show count of multiple integration highlights
             show_integration_count = true,
@@ -79,25 +79,25 @@ return {
           },
         }
       )
-      require('mini.cursorword').setup()
+      require("mini.cursorword").setup()
 
       -- Starter page
-      local starter = require 'mini.starter'
-      starter.setup {
+      local starter = require("mini.starter")
+      starter.setup({
         evaluate_single = true,
         items = {
+          starter.sections.telescope(),
           starter.sections.recent_files(5, true),
           starter.sections.recent_files(5, false),
-          starter.sections.telescope(),
           starter.sections.builtin_actions(),
         },
         content_hooks = {
           starter.gen_hook.adding_bullet(),
-          starter.gen_hook.indexing('all', { 'Builtin actions' }),
+          starter.gen_hook.indexing("all", { "Builtin actions" }),
           starter.gen_hook.padding(3, 2),
-          starter.gen_hook.aligning('center', 'center'),
+          starter.gen_hook.aligning("center", "center"),
         },
-      }
+      })
 
       -- mini statusline
       -- local my_active_content = function()

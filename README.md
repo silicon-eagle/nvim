@@ -108,6 +108,26 @@ External Requirements:
   - If you want to write Golang, you will need `go`
   - etc.
 
+#### Install Details
+Install [choco](https://chocolatey.org/install) 
+```
+# git
+choco install git layzgit
+
+# neovim
+choco install neovim --pre
+
+# neovim utils
+choco install make unzip ripgrep mingw fd
+
+# rust
+choco install rustup.install
+rustup toolchain install stable-msvc
+
+# python
+choco install uv python
+```
+
 > [!NOTE]
 > See [Install Recipes](#Install-Recipes) for additional Windows and Linux specific notes
 > and quick install snippets

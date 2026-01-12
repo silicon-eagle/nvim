@@ -120,13 +120,12 @@ choco install neovim --pre
 # neovim utils
 choco install make unzip ripgrep mingw fd
 
-# rust
-choco install rustup.install
-rustup toolchain install stable-msvc
-
 # python
 choco install uv python
 ```
+Install [MSVC](https://rust-lang.github.io/rustup/installation/windows-msvc.html)
+Install rust with [rustup](https://rust-lang.github.io/rustup/installation/windows-msvc.html)
+
 
 > [!NOTE]
 > See [Install Recipes](#Install-Recipes) for additional Windows and Linux specific notes

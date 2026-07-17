@@ -50,14 +50,15 @@ return { -- Autocompletion
       --
       -- All presets have the following mappings:
       -- <tab>/<s-tab>: move to right/left of your snippet expansion
-      -- <c-enter>: Open menu or open docs if already open
+      -- <c-enter>: Open menu or toggle documentation
       -- <c-n>/<c-p> or <up>/<down>: Select next/previous item
       -- <c-e>: Hide menu
       -- <c-k>: Toggle signature help
       --
       -- See :h blink-cmp-config-keymap for defining your own keymap
       preset = 'default',
-      ['<C-Enter>'] = { 'show', 'fallback' },
+      ['<C-Space>'] = false,
+      ['<C-Enter>'] = { 'show', 'show_documentation', 'hide_documentation' },
 
       -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
       --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
@@ -70,7 +71,7 @@ return { -- Autocompletion
     },
 
     completion = {
-      -- By default, you may press `<c-enter>` to show the documentation.
+      -- Press `<c-enter>` to show or hide the documentation.
       -- Optionally, set `auto_show = true` to show the documentation after a delay.
       documentation = { auto_show = false, auto_show_delay_ms = 500 },
     },

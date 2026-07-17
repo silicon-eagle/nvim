@@ -253,6 +253,7 @@ return {
       -- tailwindcss = {},
       -- graphql = {},
       html = { filetypes = { "html", "twig", "hbs" } },
+      ts_ls = {},
       -- cssls = {},
       -- ltex = {},
       -- texlab = {},

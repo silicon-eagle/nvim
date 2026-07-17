@@ -56,7 +56,6 @@ return {
 				{ "<leader>l", group = "lazy" },
 				{ "<leader>m", group = "minimap" },
 				{ "<leader>n", group = "notifications" },
-				{ "<leader>p", group = "pytest" },
 				{ "<leader>o", group = "open overview" },
 				{ "<leader>q", group = "quit/session" },
 				{ "<leader>s", group = "search" },

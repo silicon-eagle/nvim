@@ -3,7 +3,7 @@
 ## Introduction
 
 This is no longer the vanilla Kickstart sample. It is a curated daily-driver
-configuration focused on fast navigation, Python-first workflows, and a clean
+configuration focused on fast navigation and a clean
 UI that stays out of the way. Kickstart's structure is still here, but every
 layer has been expanded with opinionated plugins, theme modules, and helper
 utilities to cover day-to-day development on Windows, macOS, and Linux.
@@ -11,58 +11,113 @@ utilities to cover day-to-day development on Windows, macOS, and Linux.
 ### Highlights
 - `Blink.cmp` + `LuaSnip` power autocompletion with type-aware snippets and Lua
   LSP docs from `lazydev`.
-- `nvim-lspconfig` + `mason` + `basedpyright` + `ruff` handle language servers,
+- `nvim-lspconfig` + `mason` handle language servers,
   formatters, and diagnostics while `none-ls` wires up format-on-save.
 - Snacks.nvim provides modern UX niceties (status column, smooth scrolling,
   slick notifications, picker, indent guides) without extra config.
 - UI polish via `bufferline`, `lualine`, `neo-tree`, `aerial`, `indent-blankline`,
   and `noice` keeps buffers, symbols, and messages tidy.
-- Batteries for testing (`custom.utils.pytest`, pytest keymaps, dap-python) and
-  debugging (`nvim-dap`, `dap-ui`, custom signs) are ready out of the box.
-- CopilotChat is built in for inline AI chat with command palette triggers.
+- LSP diagnostics, formatting, and navigation are configured to stay close to
+  the code without adding extra workflow layers.
 
-### Plugin Stack at a Glance
-| Category | Plugins / Notes |
-| --- | --- |
-| Completion & Snippets | `saghen/blink.cmp`, `LuaSnip`, `folke/lazydev.nvim` |
-| LSP & Diagnostics | `nvim-lspconfig`, `mason.nvim`, `mason-lspconfig`, `mason-tool-installer`, `nvimtools/none-ls.nvim`, `j-hui/fidget.nvim` |
-| Treesitter & Text Objects | `nvim-treesitter`, `mini.ai`, `mini.surround`, `todo-comments.nvim` |
-| Navigation & Search | `telescope.nvim` (+ `telescope-fzf-native`, `telescope-ui-select`), `ThePrimeagen/harpoon` (v2), `stevearc/aerial.nvim` |
-| UI & Workflow | `bufferline.nvim`, `lualine.nvim`, `nvim-neo-tree`, `folke/noice.nvim`, `folke/snacks.nvim`, `indent-blankline.nvim`, `windwp/nvim-autopairs`, `which-key.nvim` |
-| Git | `lewis6991/gitsigns.nvim`, `kdheepak/lazygit.nvim` |
-| Testing & Debugging | `mfussenegger/nvim-dap`, `rcarriga/nvim-dap-ui`, `mason-nvim-dap`, `nvim-dap-python`, custom pytest helpers in `lua/custom/utils/pytest.lua` |
-| AI Assist | `CopilotC-Nvim/CopilotChat.nvim` with floating chat buffers |
+### Plugins
+
+#### Theme
+- `catppuccin/nvim` — Provides the default Catppuccin Mocha colorscheme.
+- `navarasu/onedark.nvim`, `folke/tokyonight.nvim`, and
+  `rose-pine/neovim` — Provide alternative themes selected with `$NVIM_THEME`.
+
+#### Completion and Lua support
+- `saghen/blink.cmp` — Provides completion, signature help, LSP capabilities,
+  and the completion keymap preset.
+- `L3MON4D3/LuaSnip` — Expands and manages completion snippets for Blink.
+- `folke/lazydev.nvim` — Supplies Lua-aware completion and documentation for
+  the Neovim configuration and plugin APIs.
+
+#### LSP, diagnostics, and formatting
+- `neovim/nvim-lspconfig` — Configures language servers and buffer-local LSP
+  navigation and code actions.
+- `mason-org/mason.nvim` — Installs and manages external language tools.
+- `mason-org/mason-lspconfig.nvim` — Connects Mason-installed servers to
+  `nvim-lspconfig`.
+- `WhoIsSethDaniel/mason-tool-installer.nvim` — Ensures configured tools are
+  installed automatically.
+- `j-hui/fidget.nvim` — Displays lightweight LSP progress notifications.
+- `nvimtools/none-ls.nvim` — Adds formatters and diagnostics as LSP sources and
+  formats buffers on save.
+- `nvimtools/none-ls-extras.nvim` — Provides additional None-LS sources.
+- `jayp0521/mason-null-ls.nvim` — Installs and manages None-LS formatters and
+  linters through Mason.
+
+#### Syntax and code structure
+- `nvim-treesitter/nvim-treesitter` — Provides syntax highlighting and
+  indentation for configured languages.
+- `stevearc/aerial.nvim` — Shows a navigable outline of symbols in the current
+  buffer.
+- `lukas-reineke/indent-blankline.nvim` — Displays indentation guides and scope
+  markers.
+- `windwp/nvim-autopairs` — Inserts and maintains matching brackets and quotes.
+
+#### Search and navigation
+- `nvim-telescope/telescope.nvim` — Provides fuzzy finders for files, help,
+  symbols, diagnostics, buffers, and project text.
+- `nvim-lua/plenary.nvim` — Supplies shared Lua utilities required by Telescope,
+  Neo-tree, and LazyGit.
+- `nvim-telescope/telescope-fzf-native.nvim` — Adds the native FZF sorter to
+  Telescope when `make` is available.
+- `nvim-telescope/telescope-ui-select.nvim` — Uses Telescope for Neovim's
+  generic selection prompts.
+- `nvim-telescope/telescope-file-browser.nvim` — Adds a file browser to
+  Telescope.
+- `ThePrimeagen/harpoon` — Provides a persistent, quick-access list of files.
+- `nvim-neo-tree/neo-tree.nvim` — Provides the filesystem browser and project
+  tree.
+- `nvim-lua/plenary.nvim` and `MunifTanjim/nui.nvim` — Support Neo-tree's
+  filesystem and UI components.
+
+#### UI and workflow
+- `folke/snacks.nvim` — Provides the picker, notifications, terminal, scrolling,
+  indentation scope, status column, and other lightweight UI utilities.
+- `akinsho/bufferline.nvim` — Displays and manages open buffers as tabs.
+- `moll/vim-bbye` — Provides buffer deletion without disrupting the window
+  layout.
+- `nvim-lualine/lualine.nvim` — Displays the mode, Git state, diagnostics,
+  project root, file path, and other statusline information.
+- `folke/noice.nvim` — Improves command-line, message, and notification UI.
+- `MunifTanjim/nui.nvim` — Provides UI primitives used by Noice and Neo-tree.
+- `rcarriga/nvim-notify` — Supplies the notification backend used by Noice.
+- `folke/which-key.nvim` — Documents keymap groups and pending key sequences.
+- `nvim-tree/nvim-web-devicons` — Adds Nerd Font icons to supported UI plugins.
+
+#### Git
+- `lewis6991/gitsigns.nvim` — Shows Git additions, changes, and deletions in
+  the sign column and exposes Git buffer status.
+- `kdheepak/lazygit.nvim` — Opens LazyGit from Neovim for repository workflows.
 
 ### Key Customizations
-- Leader key is `<Space>` with `which-key` categories for buffers, git, debug,
-  pytest, and more. Buffer/tab controls come from `bufferline` plus Harpoon v2
+- Leader key is `<Space>` with `which-key` categories for buffers, git, code,
+  and more. Buffer/tab controls come from `bufferline` plus Harpoon v2
   mappings (`<leader>hh`, `<leader>hm`, `<leader>1..9`).
-- Themes live in `lua/custom/themes/*`. Set `$NVIM_THEME` to `onedark`,
-  `tokyonight`, or `rosepine` (default: onedark) before launching Neovim to
+- Themes live in `lua/custom/themes/*`. Set `$NVIM_THEME` to `catppuccin`,
+  `onedark`, `tokyonight`, or `rosepine` (default: catppuccin mocha) before launching Neovim to
   swap palettes without touching Lua.
 - `lua/custom/utils/root.lua` and `config.icons` drive the lualine components,
   showing the project root and pretty buffer paths next to diagnostics and git
   stats.
-- Python quality-of-life: automatic interpreter detection via `uv python find`
-  fallback (`custom.utils.python`), pytest orchestration with Snacks terminals
-  (`<leader>pm/pf/pl`), and dap-python pre-wired for pytest debugging.
 - Snacks.nvim handles scroll, indent scope, statuscolumn, notifications, and a
   fuzzy picker—`<leader>ns` opens recent notifications, `<leader>nd` dismisses
   them.
-- Format-on-save is enabled through `none-ls` for Lua (stylua), Ruff (formatting
-  + import order), Prettier, shfmt, and Terraform.
-- CopilotChat shortcuts: `<leader>aa` toggles the chat window, `<leader>aq`
-  prompts for a quick question, `<leader>ap` opens prompt presets.
+- Format-on-save is enabled through `none-ls` for Lua (stylua), Prettier, shfmt,
+  and Terraform.
 
 ### Project Layout
 - `lua/config/` — options, keymaps, autocmds, and custom icon definitions loaded
   before Lazy.
 - `lua/custom/plugins/` — one plugin per file for clarity (LSP, Treesitter,
-  Telescope, Harpoon, DAP, etc.). Add new specs here to keep upstream merges
+  Telescope, Harpoon, UI, and Git). Add new specs here to keep upstream merges
   painless.
 - `lua/custom/themes/` — theme modules selected dynamically via `$NVIM_THEME`.
-- `lua/custom/utils/` — utility modules for pytest runners, python resolution,
-  and root/path helpers used by statusline + commands.
+- `lua/custom/utils/` — root/path helpers used by statusline + commands.
 - `lua/custom/health.lua` — `:checkhealth kickstart.nvim` entries validating
   dependencies like git/make/rg.
 
@@ -101,7 +156,7 @@ External Requirements:
   [fd-find](https://github.com/sharkdp/fd#installation)
 - Clipboard tool (xclip/xsel/win32yank or other depending on the platform)
 - A [Nerd Font](https://www.nerdfonts.com/): optional, provides various icons
-  - if you have it set `vim.g.have_nerd_font` in `init.lua` to true
+  - `vim.g.have_nerd_font` is enabled in `lua/config/options.lua`
 - Emoji fonts (Ubuntu only, and only if you want emoji!) `sudo apt install fonts-noto-color-emoji`
 - Language Setup:
   - If you want to write Typescript, you need `npm`

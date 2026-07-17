@@ -32,11 +32,12 @@ require 'config.icons'
 --
 --  To check the current status of your plugins, run
 --    :Lazy
-local default_color_scheme = 'onedark'
+local default_color_scheme = 'catppuccin'
 local env_var_nvim_theme = os.getenv 'NVIM_THEME' or default_color_scheme
 
 -- Define a table of theme modules
 local themes = {
+  catppuccin = 'custom.themes.catppuccin',
   tokyonight = 'custom.themes.tokyonight',
   onedark = 'custom.themes.onedark',
   rosepine = 'custom.themes.rosepine',

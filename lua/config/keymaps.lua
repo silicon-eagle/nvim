@@ -2,16 +2,6 @@
 --  See `:help vim.keymap.set()`
 
 local map = vim.keymap.set
-local pytest = require 'custom.utils.pytest'
-local function python_only(handler)
-  return function(...)
-    if vim.bo.filetype ~= 'python' then
-      vim.notify('[pytest] Not a python buffer', vim.log.levels.WARN)
-      return
-    end
-    handler(...)
-  end
-end
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -144,19 +134,3 @@ map("n", "<leader>|", "<C-W>v", { desc = "Split Window Right", remap = true })
 map("n", "<leader>wd", "<C-W>c", { desc = "Delete Window", remap = true })
 map("n", "<leader>wtq", ":tabclose<CR>", { desc = "Close current tab" })
 
--- floating terminal
-map("n", "<leader>t", function() Snacks.terminal() end, { desc = "Terminal (cwd)" })
-
--- pytest helpers
-map("n", "<leader>pm", python_only(pytest.run_nearest), { desc = "[P]ytest [M]ethod" })
-map("n", "<leader>pf", python_only(pytest.run_file), { desc = "[P]ytest [F]ile" })
-map("n", "<leader>pl", python_only(pytest.run_last), { desc = "[P]ytest [L]ast" })
-
-
--- minimap helpers
-map("n", "<Leader>mc", function() MiniMap.close() end, { desc = "Minimap Close" })
-map("n", "<Leader>mf", function() MiniMap.toggle_focus() end, { desc = "Minimap Toggle Focus" })
-map("n", "<Leader>mo", function() MiniMap.open() end, { desc = "Minimap Open" })
-map("n", "<Leader>mr", function() MiniMap.refresh() end, { desc = "Minimap Refresh" })
-map("n", "<Leader>ms", function() MiniMap.toggle_side() end, { desc = "Minimap Toggle Side" })
-map("n", "<Leader>mt", function() MiniMap.toggle() end, { desc = "Minimap Toggle" })
